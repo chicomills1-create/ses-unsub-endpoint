@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: apex-ses-unsubscribe
+    env: python
+    plan: free
+    region: virginia
+    buildCommand: pip install -r requirements.txt
+    startCommand: python unsubscribe.py --serve --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: SES_UNSUB_SECRET
+        sync: false   # set via API/console; value = platform data/unsub_secret.key contents
+      - key: PYTHONUNBUFFERED
+        value: "1"
